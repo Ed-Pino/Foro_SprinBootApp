@@ -170,7 +170,7 @@ El desarrollo de las funcionalidades principales y la arquitectura básica está
 
 ## 👨‍💻 Personas Desarrolladoras del Proyecto
 
-| [<img src="https://avatars.githubusercontent.com/u/tu_usuario_github?v=4" width=100><br><sub>**Ed Pino**</sub>](https://github.com/TuUsuarioDeGitHub) | [<img src="https://avatars.githubusercontent.com/u/108250686?v=4" width=100><br><sub>**Ingeniero Gemi**</sub>](https://www.gemini.com) |
+| [<img src="https://avatars.githubusercontent.com/u/tu_usuario_github?v=4" width=100><br><sub>**Ed Pino**</sub>](https://github.com/TuUsuarioDeGitHub) | 
 | :---: | :---: |
 
 *(Ed`https://github.com/Ed-Pino/Foro_SprinBootApp.git`*
