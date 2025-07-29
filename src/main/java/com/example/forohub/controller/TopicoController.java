@@ -1,6 +1,10 @@
 package com.example.forohub.controller;
 
 import com.example.forohub.domain.curso.CursoRepository;
+import com.example.forohub.domain.respuesta.DatosDetalleRespuesta;
+import com.example.forohub.domain.respuesta.DatosRegistroRespuesta;
+import com.example.forohub.domain.respuesta.Respuesta;
+import com.example.forohub.domain.respuesta.RespuestaRepository;
 import com.example.forohub.domain.topico.*;
 import com.example.forohub.domain.usuario.UsuarioRepository;
 import jakarta.transaction.Transactional;
@@ -17,6 +21,35 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 @RequestMapping("/topicos")
 public class TopicoController {
+
+    @Autowired
+    private RespuestaRepository respuestaRepository;
+
+    @PostMapping("/{topicoId}/respuestas")
+    @Transactional
+    public ResponseEntity<DatosDetalleRespuesta> registrarRespuesta(
+            @PathVariable Long topicoId,
+            @RequestBody @Valid DatosRegistroRespuesta datos,
+            UriComponentsBuilder uriBuilder) {
+
+        // 1. Validar que el tópico y el autor existen
+        var topico = topicoRepository.findById(topicoId)
+                .orElseThrow(() -> new IllegalArgumentException("Tópico no encontrado con ID: " + topicoId));
+        var autor = usuarioRepository.findById(datos.autorId())
+                .orElseThrow(() -> new IllegalArgumentException("Autor no encontrado con ID: " + datos.autorId()));
+
+        // 2. Crear la nueva respuesta y asociarla
+        var respuesta = new Respuesta(datos.mensaje(), topico, autor);
+
+        // 3. Guardar la respuesta
+        respuestaRepository.save(respuesta);
+
+        // 4. Construir la URI para la nueva respuesta
+        // Nota: La URI de una respuesta individual podría ser /respuestas/{id}
+        var uri = uriBuilder.path("/respuestas/{id}").buildAndExpand(respuesta.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(new DatosDetalleRespuesta(respuesta));
+    }
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -101,6 +134,23 @@ public class TopicoController {
             // Si no existe, devolvemos un 404 Not Found, que es el estándar REST para este caso
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/{topicoId}/respuestas")
+    public ResponseEntity<Page<DatosDetalleRespuesta>> listarRespuestas(
+            @PathVariable Long topicoId,
+            @PageableDefault(size = 10, sort = "fechaCreacion") Pageable paginacion) {
+
+        // 1. Validar que el tópico existe
+        if (!topicoRepository.existsById(topicoId)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // 2. Buscar las respuestas para ese tópico
+        var paginaDeRespuestas = respuestaRepository.findByTopicoId(topicoId, paginacion)
+                .map(DatosDetalleRespuesta::new);
+
+        return ResponseEntity.ok(paginaDeRespuestas);
     }
 
 }

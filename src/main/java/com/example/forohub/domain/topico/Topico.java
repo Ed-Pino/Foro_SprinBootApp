@@ -64,4 +64,32 @@ public class Topico {
     public void cerrar() {
         this.status = "CERRADO";
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Usuario getAutor() {
+        return autor;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
 }

@@ -18,4 +18,16 @@ public class Curso {
     private String nombre;
 
     private String categoria;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
 }

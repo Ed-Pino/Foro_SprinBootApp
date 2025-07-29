@@ -1,8 +1,7 @@
 //Responsabilidad: Conectar Spring Security con nuestra base de datos
 
-package com.example.forohub.infra.security;
+package com.example.forohub.domain.usuario;
 
-import com.example.forohub.domain.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
