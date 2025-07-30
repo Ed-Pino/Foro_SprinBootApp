@@ -103,10 +103,9 @@ El desarrollo de las funcionalidades principales y la arquitectura básica está
 
 1.  **Clonar el Repositorio:**
     ```bash
-    git clone https://github.com/TuUsuarioDeGitHub/ForoHub.git
+    git clone https://github.com/Ed-Pino/Foro_SprinBootApp.git
     cd ForoHub
     ```
-    *(Asegúrate de reemplazar `TuUsuarioDeGitHub` con el nombre de tu usuario/organización cuando subas el proyecto)*
 
 2.  **Configurar la Base de Datos:**
     -   Crea una base de datos llamada `foro` en tu servidor MySQL.
