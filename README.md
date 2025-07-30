@@ -23,7 +23,7 @@
 <h1 align="center">ForoHub API</h1>
 <p align="center">
   <!-- Reemplaza con un enlace a tu imagen. Puedes subirla a tu repo o usar un servicio como Imgur. -->
-  <img src="https://via.placeholder.com/600x200?text=Logo+ForoHub" alt="Logo de ForoHub" width="600"/>
+  <img src="https://st2.depositphotos.com/3591429/5245/i/450/depositphotos_52451245-stock-illustration-hands-holding-speech-bubbles.jpg" alt="Logo de ForoHub" width="600"/>
 </p>
 <p align="center">
   <i>El motor RESTful para tu plataforma de discusión, robusto y seguro.</i>
