@@ -15,7 +15,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -34,14 +37,10 @@ public class SecurityConfigurations {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
-                    // Endpoint público para el login
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
-                    // Endpoint público para el registro de usuarios
                     req.requestMatchers(HttpMethod.POST, "/usuarios").permitAll();
-                    // ----- LÍNEA CORREGIDA PARA PERMITIR ACCESO A TODAS LAS RUTAS DE SWAGGER -----
-                    req.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll(); // Aseguramos que /v3/api-docs también sea público
-                    // Todas las demás rutas requieren autenticación
-                    req.anyRequest().authenticated();
+                    req.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll();
+                    req.anyRequest().authenticated(); // <--- ESTA LÍNEA DEBE VOLVER A AUTENTICATED
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
@@ -66,6 +65,21 @@ public class SecurityConfigurations {
         authProvider.setUserDetailsService(autenticacionService); // <-- ¡Punto clave! Le pasamos nuestro servicio
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
+    }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("*"); // Permite todos los orígenes (para desarrollo)
+        configuration.addAllowedMethod("*"); // Permite todos los métodos (GET, POST, PUT, DELETE, etc.)
+        configuration.addAllowedHeader("*"); // Permite todas las cabeceras (incluyendo Authorization)
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration); // Aplica esta configuración a todas las rutas
+        return source;
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        return new CorsFilter(corsConfigurationSource());
     }
 
 }
