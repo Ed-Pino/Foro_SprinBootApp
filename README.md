@@ -94,7 +94,7 @@ Todas las funcionalidades principales están implementadas y verificadas. La apl
 ## 🌐 Funcionalidades del Frontend
 
 El frontend permite a los usuarios interactuar con la API de ForoHub a través de una interfaz de usuario en el navegador.
--  **Link del Frontend : `https://github.com/Ed-Pino/Interface-de-usuario-ForoHub.git`
+-  **Link del Frontend :** `https://github.com/Ed-Pino/Interface-de-usuario-ForoHub.git`
 -   **Registro de Usuarios:** Accede a `register.html` para crear una nueva cuenta en el foro.
 -   **Inicio de Sesión:** En `login.html`, los usuarios pueden autenticarse utilizando sus credenciales.
 -   **Listado de Tópicos:** Una vez autenticado, `index.html` muestra una lista dinámica de todos los tópicos del foro, obtenidos directamente de la API.
